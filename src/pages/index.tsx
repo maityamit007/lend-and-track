@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Meta from "@/meta/Meta";
 import { Geist, Geist_Mono } from "next/font/google";
 
 const geistSans = Geist({
@@ -16,6 +16,7 @@ export default function Home() {
     <div
       className={`${geistSans.className} ${geistMono.className}`}
     >
+      <Meta />
     </div>
   );
 }
