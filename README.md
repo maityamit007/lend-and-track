@@ -1,8 +1,8 @@
-Lend and Track
+# Lend and Track
 
 Lend and Track is a web application designed for saving and reviewing all the details of the people you lend money to. It lets you store proofs, borrower details, and dates, all organized neatly within a clean and beautiful dashboard.
 
-✨ Features
+# ✨ Features
 
 📌 Save borrower details with proof and date records
 
@@ -12,7 +12,7 @@ Lend and Track is a web application designed for saving and reviewing all the de
 
 🔍 Easy tracking of transactions with clarity
 
-🛠️ Tech Stack
+# 🛠️ Tech Stack
 
 React – Component-based UI
 
@@ -22,7 +22,7 @@ TypeScript – Strong typing for scalable development
 
 Tailwind CSS – Utility-first CSS for modern styling
 
-🚀 Getting Started
+# 🚀 Getting Started
 Prerequisites
 
 Make sure you have the following installed:
@@ -39,7 +39,7 @@ git clone https://github.com/maityamit007/lend-and-track.git
 cd lend-and-track
 
 
-Install dependencies
+# Install dependencies
 
 npm install
 # or
