@@ -1,4 +1,5 @@
-import Dashboard from "@/component/dashboard/Dashboard";
+import LATHome from "@/component/LATHome";
+import BreadcrumbContext from "@/context/context";
 import Meta from "@/meta/Meta";
 import { Geist, Geist_Mono } from "next/font/google";
 
@@ -13,12 +14,15 @@ const geistMono = Geist_Mono({
 });
 
 export default function Home() {
+
   return (
     <div
       className={``}
     >
-      <Meta />
-      <Dashboard/>
+      <BreadcrumbContext>
+        <Meta />
+        <LATHome />
+      </BreadcrumbContext>
     </div>
   );
 }

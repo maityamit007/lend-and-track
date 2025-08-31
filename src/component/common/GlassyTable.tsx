@@ -1,17 +1,8 @@
 import React, { useMemo, useState } from "react";
-import { seedData } from "@/utils/globalUtils";
 
 function cn(...classes: any) {
     return classes.filter(Boolean).join(" ");
 }
-
-type Row = {
-    id: number;
-    name: string;
-    last_lent_date: string;
-    amount: number;
-    status: string;
-};
 
 type SortKey = keyof Pick<Row, "name" | "last_lent_date" | "amount" | "status">;
 
@@ -21,9 +12,11 @@ type columnProps = {
 }
 
 export default function GlassyTable({
-    columns = []
+    columns = [],
+    tableData
 }: {
-    columns?: columnProps[]
+    columns?: columnProps[],
+    tableData: any[]
 }) {
     const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" }>({ key: "amount", dir: "desc" });
     const [page, setPage] = useState(1);
@@ -31,7 +24,7 @@ export default function GlassyTable({
 
 
     const sorted = useMemo(() => {
-        const arr = seedData;
+        const arr = tableData;
         arr.sort((a, b) => {
             const vA = a[sort.key];
             const vB = b[sort.key];
@@ -112,7 +105,7 @@ export default function GlassyTable({
                                                 className="inline-flex items-center gap-1.5 hover:opacity-90"
                                             >
                                                 {col.label}
-                                                ⬇️⬆️
+                                                {` ⬇⬆`}
                                             </button>
                                         </th>
                                     ))}
@@ -186,7 +179,7 @@ export default function GlassyTable({
                             <span className="font-semibold text-white">
                                 {pageData.length}
                             </span>{" "}
-                            of {seedData.length} results
+                            of {tableData.length} results
                         </div>
                         <div className="flex items-center gap-2 self-end md:self-auto">
                             <button

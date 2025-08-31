@@ -84,3 +84,81 @@ export const seedData = [
     status: "Inactive",
   },
 ];
+
+
+
+
+export const historyData = [
+  {
+    id: 1,
+    date: "2025-08-01",
+    amount: 9200,
+    actions: "Active",
+  },
+  {
+    id: 2,
+    date: "2025-08-01",
+    amount: 9200,
+    actions: "Active",
+  },
+  {
+    id: 3,
+    date: "2025-08-01",
+    amount: 9200,
+    actions: "Active",
+  },
+  {
+    id: 4,
+    date: "2025-08-01",
+    amount: 9200,
+    actions: "Active",
+  },
+  {
+    id: 5,
+    date: "2025-08-01",
+    amount: 9200,
+    actions: "Active",
+  },
+  {
+    id: 6,
+    date: "2025-08-01",
+    amount: 9200,
+    actions: "Active",
+  },
+  {
+    id: 7,
+    date: "2025-08-01",
+    amount: 9200,
+    actions: "Active",
+  },
+  {
+    id: 8,
+    date: "2025-08-01",
+    amount: 9200,
+    actions: "Active",
+  },
+  {
+    id: 9,
+    date: "2025-08-01",
+    amount: 9200,
+    actions: "Active",
+  },
+  {
+    id: 10,
+    date: "2025-08-01",
+    amount: 9200,
+    actions: "Active",
+  },
+  {
+    id: 11,
+    date: "2025-08-01",
+    amount: 9200,
+    actions: "Active",
+  },
+  {
+    id: 12,
+    date: "2025-08-01",
+    amount: 9200,
+    actions: "Active",
+  },
+];
