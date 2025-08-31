@@ -8,21 +8,12 @@ function cn(...classes: any) {
 type Row = {
     id: number;
     name: string;
-    role: string;
-    location: string;
-    score: number;
+    last_lent_date: string;
+    amount: number;
     status: string;
 };
 
-type SortKey = keyof Pick<Row, "name" | "role" | "location" | "score" | "status">;
-
-const columns = [
-    { key: "name", label: "Name" },
-    { key: "role", label: "Role" },
-    { key: "location", label: "Location" },
-    { key: "score", label: "Score" },
-    { key: "status", label: "Status" },
-];
+type SortKey = keyof Pick<Row, "name" | "last_lent_date" | "amount" | "status">;
 
 type columnProps = {
     key: string;
@@ -34,22 +25,13 @@ export default function GlassyTable({
 }: {
     columns?: columnProps[]
 }) {
-    const [query, setQuery] = useState("");
-    const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" }>({ key: "score", dir: "desc" });
+    const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" }>({ key: "amount", dir: "desc" });
     const [page, setPage] = useState(1);
     const pageSize = 6;
 
-    const filtered = useMemo(() => {
-        const q = query.toLowerCase();
-        return seedData.filter((r: Row) =>
-            [r.name, r.role, r.location, r.status].some((f) =>
-                String(f).toLowerCase().includes(q)
-            )
-        );
-    }, [query]);
 
     const sorted = useMemo(() => {
-        const arr = [...filtered];
+        const arr = seedData;
         arr.sort((a, b) => {
             const vA = a[sort.key];
             const vB = b[sort.key];
@@ -61,7 +43,7 @@ export default function GlassyTable({
                 : String(vB).localeCompare(String(vA));
         });
         return arr;
-    }, [filtered, sort]);
+    }, [sort]);
 
     const totalPages = Math.max(1, Math.ceil(sorted.length / pageSize));
     const pageData = useMemo(() => {
@@ -104,23 +86,6 @@ export default function GlassyTable({
                         <p className="mt-1 text-slate-300/90">
                             Dashboard
                         </p>
-                    </div>
-
-                    <div className="relative w-full md:w-80">
-                        <div className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-300/70" />
-                        <input
-                            value={query}
-                            onChange={(e) => {
-                                setPage(1);
-                                setQuery(e.target.value);
-                            }}
-                            placeholder="Search name, role, location..."
-                            className={cn(
-                                "w-full rounded-2xl border border-white/20 bg-white/10 px-10 py-3",
-                                "text-white placeholder:text-slate-300/60 backdrop-blur-xl",
-                                "focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
-                            )}
-                        />
                     </div>
                 </div>
 
@@ -175,20 +140,17 @@ export default function GlassyTable({
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 text-slate-100/95">{row.role}</td>
-                                        <td className="px-6 py-4 text-slate-100/95">
-                                            {row.location}
-                                        </td>
+                                        <td className="px-6 py-4 text-slate-100/95">{row.last_lent_date}</td>
                                         <td className="px-6 py-4">
                                             <span
                                                 className={cn(
                                                     "inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold",
                                                     "border border-white/20 bg-white/10 text-white/90 backdrop-blur",
-                                                    row.score >= 90 && "ring-1 ring-cyan-400/40",
-                                                    row.score < 75 && "opacity-90"
+                                                    row.amount >= 90 && "ring-1 ring-cyan-400/40",
+                                                    row.amount < 75 && "opacity-90"
                                                 )}
                                             >
-                                                {row.score}
+                                                {row.amount}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4">
@@ -198,16 +160,14 @@ export default function GlassyTable({
                                                     "shadow-sm backdrop-blur group-hover:translate-x-[1px] transition-transform",
                                                     row.status === "Active" &&
                                                     "ring-1 ring-emerald-400/40",
-                                                    row.status === "Busy" && "ring-1 ring-amber-400/40",
-                                                    row.status === "Away" && "ring-1 ring-sky-400/40"
+                                                    row.status === "Inactive" && "ring-1 ring-red-400/40",
                                                 )}
                                             >
                                                 <span
                                                     className={cn(
                                                         "h-2.5 w-2.5 rounded-full",
                                                         row.status === "Active" && "bg-emerald-400",
-                                                        row.status === "Busy" && "bg-amber-400",
-                                                        row.status === "Away" && "bg-sky-400"
+                                                        row.status === "Inactive" && "bg-red-400",
                                                     )}
                                                 />
                                                 {row.status}
@@ -226,12 +186,7 @@ export default function GlassyTable({
                             <span className="font-semibold text-white">
                                 {pageData.length}
                             </span>{" "}
-                            of {filtered.length} results
-                            {query && (
-                                <span className="ml-2 rounded-full border border-white/20 bg-white/10 px-2 py-0.5 text-xs text-white/80">
-                                    filtered
-                                </span>
-                            )}
+                            of {seedData.length} results
                         </div>
                         <div className="flex items-center gap-2 self-end md:self-auto">
                             <button
@@ -260,22 +215,6 @@ export default function GlassyTable({
                             </button>
                         </div>
                     </div>
-                </div>
-
-                {/* Tiny legend */}
-                <div className="mt-5 flex flex-wrap items-center gap-2 text-xs text-slate-300/80">
-                    <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
-                        Glassy UI
-                    </span>
-                    <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
-                        Backdrop blur
-                    </span>
-                    <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
-                        Framer Motion
-                    </span>
-                    <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
-                        Tailwind
-                    </span>
                 </div>
             </div>
         </div>

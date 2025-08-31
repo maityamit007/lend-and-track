@@ -1,7 +1,6 @@
 export const columns = [
   { key: "name", label: "Name" },
-  { key: "role", label: "Role" },
-  { key: "location", label: "Location" },
-  { key: "score", label: "Score" },
+  { key: "last_lent_date", label: "Last Lent Date" },
+  { key: "amount", label: "Amount" },
   { key: "status", label: "Status" },
 ];
